@@ -142,7 +142,7 @@ typedef NS_ENUM(NSInteger, DKGLabelType) {
     NSInteger i = [[NSUserDefaults standardUserDefaults] integerForKey:kDefaultsCurrency];
     i = MAX(0, MIN(i, _currencySubmenu.itemArray.count - 1));
     currency = [[_currencySubmenu itemAtIndex:i] title];
-    NSURL* URL = [NSURL URLWithString:[NSString stringWithFormat:@"https://mtgox.com/api/1/BTC%@/ticker", currency]];
+    NSURL* URL = [NSURL URLWithString:[NSString stringWithFormat:@"https://www.bitstamp.net/api/ticker/"]];
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         NSData* data = [NSData dataWithContentsOfURL:URL];
         dispatch_async(dispatch_get_main_queue(), ^{
@@ -159,48 +159,35 @@ typedef NS_ENUM(NSInteger, DKGLabelType) {
     
     NSDictionary* json = [NSJSONSerialization JSONObjectWithData:data options:nil error:&error];
     
-    if (![json[@"result"] isEqual:@"success"]) return;
+    NSString* high = json[@"high"];
+    NSString* last = json[@"last"];
+    NSString* timestamp = json[@"timestamp"];
+    NSString* bid = json[@"bid"];
+    NSString* volume = json[@"volume"];
+    NSString* low = json[@"low"];
+    NSString* ask = json[@"ask"];
     
-    id ticker = json[@"return"];
     
-    for (int i = 0; i < kKeyNamesCount; i++)
-    {
-        NSString* label = nil;
-        NSString* key = kKeyNames[i][0];
-        NSString* keyName = kKeyNames[i][1];
-        
-        switch (_displayLabelType)
-        {
-            case kBitcoinSymbol:
-                label = @"฿ ";
-                break;
-            case kNoLabel:
-                label = @"";
-                break;
-            default:
-                label = [NSString stringWithFormat:@"%@: ", keyName];
-                break;
-        }
-        
-        NSString* valueString = ticker[key][@"value"];
-        
-        // Decimals
-        NSRange decimalLocation = [valueString rangeOfString:@"."];
-        if (decimalLocation.location != NSNotFound && _displayDecimals < valueString.length - decimalLocation.location) {
-            valueString = [valueString substringToIndex:(decimalLocation.location + (_displayDecimals > 0 ? _displayDecimals + 1 : 0))];
-        }
-        
-        [[_statusMenu itemAtIndex:i] setTitle:[NSString stringWithFormat:@"%@:  \t%@", keyName, valueString]];
-        
-        if (_displayItem == i) {
-            NSDictionary *attributes = [NSDictionary dictionaryWithObjectsAndKeys:
-                                        [NSFont systemFontOfSize: _displayFontSize], NSFontAttributeName, nil];
-            NSMutableAttributedString* s = [[NSMutableAttributedString alloc]
-                                            initWithString:[NSString stringWithFormat:@"%@%@", label, valueString]
-                                            attributes:attributes];
-            [_statusItem setAttributedTitle:s];
-        }
-    }
+    NSString *label = [NSString stringWithFormat:@"USD: "];
+    
+    NSString* valueString = last;
+    
+    [[_statusMenu itemAtIndex:0] setTitle:[NSString stringWithFormat:@"%@:  \t%@", @"Timestamp", timestamp]];
+    [[_statusMenu itemAtIndex:1] setTitle:[NSString stringWithFormat:@"%@:  \t%@", @"Last", last]];
+    [[_statusMenu itemAtIndex:2] setTitle:[NSString stringWithFormat:@"%@:  \t%@", @"High", high]];
+    [[_statusMenu itemAtIndex:3] setTitle:[NSString stringWithFormat:@"%@:  \t%@", @"Low", low]];
+    [[_statusMenu itemAtIndex:4] setTitle:[NSString stringWithFormat:@"%@:  \t%@", @"Ask", ask]];
+    [[_statusMenu itemAtIndex:5] setTitle:[NSString stringWithFormat:@"%@:  \t%@", @"Bid", bid]];
+    [[_statusMenu itemAtIndex:6] setTitle:[NSString stringWithFormat:@"%@:  \t%@", @"Volume", volume]];
+    [[_statusMenu itemAtIndex:7] setTitle:[NSString stringWithFormat:@"%@:  \t%@", @"Timestamp", timestamp]];
+    
+    
+    NSDictionary *attributes = [NSDictionary dictionaryWithObjectsAndKeys:
+                                    [NSFont systemFontOfSize: _displayFontSize], NSFontAttributeName, nil];
+    NSMutableAttributedString* s = [[NSMutableAttributedString alloc]
+                                    initWithString:[NSString stringWithFormat:@"%@%@", label, valueString]
+                                        attributes:attributes];
+    [_statusItem setAttributedTitle:s];
 }
 
 - (void)changeDisplay:(id)sender

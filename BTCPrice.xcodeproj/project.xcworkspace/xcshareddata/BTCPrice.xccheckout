@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
+	<false/>
+	<key>IDESourceControlProjectIdentifier</key>
+	<string>7286E7A7-0CFD-44ED-87F5-7039EA1290AA</string>
+	<key>IDESourceControlProjectName</key>
+	<string>BTCPrice</string>
+	<key>IDESourceControlProjectOriginsDictionary</key>
+	<dict>
+		<key>565212CC-3653-48BA-AAEB-EBB53868A70A</key>
+		<string>https://github.com/gyss/BTCPrice.git</string>
+	</dict>
+	<key>IDESourceControlProjectPath</key>
+	<string>BTCPrice.xcodeproj/project.xcworkspace</string>
+	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
+	<dict>
+		<key>565212CC-3653-48BA-AAEB-EBB53868A70A</key>
+		<string>../..</string>
+	</dict>
+	<key>IDESourceControlProjectURL</key>
+	<string>https://github.com/gyss/BTCPrice.git</string>
+	<key>IDESourceControlProjectVersion</key>
+	<integer>110</integer>
+	<key>IDESourceControlProjectWCCIdentifier</key>
+	<string>565212CC-3653-48BA-AAEB-EBB53868A70A</string>
+	<key>IDESourceControlProjectWCConfigurations</key>
+	<array>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>565212CC-3653-48BA-AAEB-EBB53868A70A</string>
+			<key>IDESourceControlWCCName</key>
+			<string>BTCPrice</string>
+		</dict>
+	</array>
+</dict>
+</plist>
